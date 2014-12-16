@@ -1,5 +1,5 @@
 {
-    "name": "tailored-tunes/mongo-connection-adapter",
+    "name": "tailored-tunes/mongo-connection-facade",
     "description": "A mongodb connection facade",
     "type": "library",
     "keywords": ["mongodb", "facade"],
