@@ -1,5 +1,5 @@
 <?php
-namespace TailoredTunes\MongoConnectionAdapter;
+namespace TailoredTunes\MongoConnectionFacade;
 
 use MongoClient;
 
