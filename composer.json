@@ -3,7 +3,7 @@
     "description": "A mongodb connection facade",
     "type": "library",
     "keywords": ["mongodb", "facade"],
-    "license": "GPLV2",
+    "license": "MIT",
     "authors": [
         {
             "name": "Meza",
