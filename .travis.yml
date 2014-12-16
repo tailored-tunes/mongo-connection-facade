@@ -1,0 +1,14 @@
+language: php
+php:
+- '5.5'
+- '5.4'
+
+install:
+   - composer install --dev
+
+script:
+  - ./vendor/bin/phpcs --standard=PSR2 src/
+
+notifications:
+  slack: tatu:ifWJMnOS9BlzH3pxQfJryUUz
+

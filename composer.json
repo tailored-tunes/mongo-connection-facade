@@ -1,0 +1,25 @@
+{
+    "name": "tailored-tunes/mongo-connection-adapter",
+    "description": "A mongodb connection facade",
+    "type": "library",
+    "keywords": ["mongodb", "facade"],
+    "license": "GPLV2",
+    "authors": [
+        {
+            "name": "Meza",
+            "email": "meza@tailored-tunes.com",
+            "homepage": "http://tailored-tunes.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "TailoredTunes\\": "src/TailoredTunes/"
+        }
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "1.*"
+    }
+}
