@@ -1,7 +1,6 @@
 <?php
-namespace TailoredTunes;
+namespace TailoredTunes\MongoConnectionAdapter;
 
-use Mongo;
 use MongoClient;
 
 class MongoDbConnection
@@ -29,7 +28,7 @@ class MongoDbConnection
     private $port;
 
     /**
-     * @var Mongo db connection
+     * @var MongoClient db connection
      */
     private $connection;
 
