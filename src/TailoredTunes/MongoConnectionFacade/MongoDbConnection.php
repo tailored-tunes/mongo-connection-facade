@@ -1,6 +1,7 @@
 <?php
 namespace TailoredTunes\MongoConnectionFacade;
 
+use Exception;
 use MongoClient;
 
 class MongoDbConnection
@@ -33,11 +34,11 @@ class MongoDbConnection
     private $connection;
 
     /**
-     * @param String  $host     The hostname the database operates on
-     * @param String  $username The username used to connect to the database
-     * @param String  $password The password used to connect to the database
-     * @param String  $db       The database
-     * @param Integer $port     The port the db listens on
+     * @param String $host The hostname the database operates on
+     * @param String $username The username used to connect to the database
+     * @param String $password The password used to connect to the database
+     * @param String $db The database
+     * @param Integer $port The port the db listens on
      */
     public function __construct($host, $db, $username = "", $password = "", $port = 43047)
     {
@@ -89,10 +90,23 @@ class MongoDbConnection
     public function connection()
     {
         if (empty($this->connection)) {
-
-            $x = new MongoClient($this->connectionString());
-            $this->connection = $x->selectDB($this->db);
+            try {
+                $x = new MongoClient($this->connectionString());
+                $this->connection = $x->selectDB($this->db);
+            } catch (Exception $e) {
+                // retry, mostly when mongodb has been restarted in order to get a new connection
+                $maxRetries = 5;
+                for ($counts = 1; $counts <= $maxRetries; $counts++) {
+                    try {
+                        $x = new MongoClient($this->connectionString());
+                        $this->connection = $x->selectDB($this->db);
+                    } catch (Exception $e) {
+                        continue;
+                    }
+                    return;
+                }
+            }
+            return $this->connection;
         }
-        return $this->connection;
     }
 }
