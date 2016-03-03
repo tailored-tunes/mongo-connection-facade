@@ -86,6 +86,7 @@ class MongoDbConnection
     /**
      * Gets the connection
      * @return MongoClient
+     * @throws Exception
      */
     public function connection()
     {
@@ -93,6 +94,7 @@ class MongoDbConnection
             try {
                 $x = new MongoClient($this->connectionString());
                 $this->connection = $x->selectDB($this->db);
+                return $this->connection;
             } catch (Exception $e) {
                 // retry, mostly when mongodb has been restarted in order to get a new connection
                 $maxRetries = 5;
@@ -100,13 +102,17 @@ class MongoDbConnection
                     try {
                         $x = new MongoClient($this->connectionString());
                         $this->connection = $x->selectDB($this->db);
+                        return $this->connection;
                     } catch (Exception $e) {
-                        continue;
+                        if ($counts === $maxRetries) {
+                            throw $e;
+                        }
                     }
-                    return;
                 }
+                throw $e;
             }
-            return $this->connection;
         }
+
+        return $this->connection;
     }
 }
